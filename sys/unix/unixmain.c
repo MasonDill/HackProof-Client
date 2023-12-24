@@ -6,6 +6,7 @@
 /* main.c - Unix NetHack */
 
 #include "hack.h"
+#include "hack_proof_ledger.h"
 #include "dlb.h"
 
 #include <ctype.h>
@@ -318,6 +319,33 @@ char *argv[];
             }
         }
     }
+
+    /////////////////////
+    // HACKPROOF SETUP //
+    ////////////////////
+    struct HackProofLedger my_ledger;
+    //my_ledger.entries = malloc(sizeof(struct LedgerEntry)); //We need to allocate memory without constructor
+    int ledger_length = 0;
+    int FINAL_SCORE = 0;
+    int G = EPOCH_CONSTANT;
+    int S0 = 0xF0F0F0; //Initial seed
+    // TODO: Send them to the API
+
+    // Recieve results & Pen Header
+    int M = 0;
+    int C = 0;
+    int Pk = 0;
+    write_ledger_header(S0, Pk);
+    //optional: verify signature if C != hash(M, Pk)
+
+    //Extract the new gamestate ID from the result
+    int E = extract_combined_gamestate_id(M, G);
+    int S1 = extract_new_gamestate_id(M, S0);
+    add_ledger_line(my_ledger, create_ledger_entry(G, E, S1, M, C));
+    ///////////////
+    // END SETUP //
+    ///////////////
+
 
     if (!resuming) {
         boolean neednewlock = (!*plname);
