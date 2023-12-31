@@ -323,6 +323,7 @@ char *argv[];
     /////////////////////
     // HACKPROOF SETUP //
     ////////////////////
+    pline("Setting up HackProof...");
     struct HackProofLedger my_ledger;
     //my_ledger.entries = malloc(sizeof(struct LedgerEntry)); //We need to allocate memory without constructor
     int ledger_length = 0;
@@ -334,7 +335,10 @@ char *argv[];
     // Recieve results & Pen Header
     int M = 0;
     int C = 0;
-    int Pk = 0;
+    uint8_t* Pk = malloc(256);
+    for(int i = 0; i < 256; i++){
+        Pk[i] = 0xFF;
+    }
     write_ledger_header(S0, Pk);
     //optional: verify signature if C != hash(M, Pk)
 

@@ -6,6 +6,7 @@
 /* various code that was replicated in *main.c */
 
 #include "hack.h"
+#include "hack_proof_ledger.h"
 #include <ctype.h>
 
 #ifndef NO_SIGNAL
@@ -176,6 +177,18 @@ boolean resuming;
                     /* once-per-turn things go here */
                     /********************************/
 
+                    /********************************/
+                    /*       Hackproof-stuff        */
+                    /********************************/
+                    //Send it
+
+                    // Get the reponses from the API
+
+                    // Record everything
+
+                
+                    /********************************/
+
                     if (Glib)
                         glibr();
                     nh_timeout();
@@ -342,7 +355,7 @@ boolean resuming;
         /****************************************/
         /* once-per-player-input things go here */
         /****************************************/
-
+        
         clear_splitobjs();
         find_ac();
         if (!context.mv || Blind) {
@@ -687,7 +700,7 @@ boolean new_game; /* false => restoring an old game */
 #ifdef POSITIONBAR
 STATIC_DCL void
 do_positionbar()
-{
+{#include 
     static char pbar[COLNO];
     char *p;
 
